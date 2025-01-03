@@ -22,6 +22,7 @@ public class ClientService {
         return new ClientDTO(client);
     }
 
+    @Transactional(readOnly = true)
     public Page<ClientDTO> findAll(Pageable pageable) {
         Page<Client> result = clientRepository.findAll(pageable);
 

@@ -3,6 +3,8 @@ package com.example.api_client.api_client_ds.controllers;
 import com.example.api_client.api_client_ds.dto.ClientDTO;
 import com.example.api_client.api_client_ds.services.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,7 +25,8 @@ public class ClientController {
     }
 
     @GetMapping()
-    public List<ClientDTO> findAll() {
-
+    public Page<ClientDTO> findAll(Pageable pageable) {
+        Page<ClientDTO> clientDTO = clientService.findAll(pageable);
+        return clientDTO;
     }
 }
