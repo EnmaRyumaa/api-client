@@ -1,0 +1,10 @@
+INSERT INTO client (name, cpf, birth_date, income, children) VALUES ('Fernando', '12345678909', '1980-02-15', 3500.00, 2);
+INSERT INTO client (name, cpf, birth_date, income, children) VALUES ('Maria', '23456789012', '1990-06-20', 4200.00, 3);
+INSERT INTO client (name, cpf, birth_date, income, children) VALUES ('João', '34567890123', '1985-03-12', 5000.00, 1);
+INSERT INTO client (name, cpf, birth_date, income, children) VALUES ('Ana', '45678901234', '1978-07-25', 3000.00, 4);
+INSERT INTO client (name, cpf, birth_date, income, children) VALUES ('Carlos', '56789012345', '1995-11-05', 4000.00, 1);
+INSERT INTO client (name, cpf, birth_date, income, children) VALUES ('Paula', '67890123456', '1992-08-13', 4500.00, 2);
+INSERT INTO client (name, cpf, birth_date, income, children) VALUES ('Renato', '78901234567', '1989-03-22', 3800.00, 0);
+INSERT INTO client (name, cpf, birth_date, income, children) VALUES ('Beatriz', '89012345678', '2000-01-01', 2700.00, 3);
+INSERT INTO client (name, cpf, birth_date, income, children) VALUES ('Lucas', '90123456789', '1998-12-10', 5000.00, 2);
+INSERT INTO client (name, cpf, birth_date, income, children) VALUES ('Gustavo', '01234567890', '1994-09-30', 4200.00, 5);
