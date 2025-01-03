@@ -1,17 +1,20 @@
 package com.example.api_client.api_client_ds.dto;
 
 import com.example.api_client.api_client_ds.entities.Client;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.PastOrPresent;
 
 import java.time.LocalDate;
 
 public class ClientDTO {
 
     private Long id;
+
+    @NotBlank(message = "Campo requerido")
     private String name;
     private String cpf;
+
+    @PastOrPresent
     private LocalDate birthDate;
     private Double income;
     private Integer children;

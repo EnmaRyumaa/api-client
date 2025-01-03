@@ -3,7 +3,11 @@ package com.example.api_client.api_client_ds.services;
 import com.example.api_client.api_client_ds.dto.ClientDTO;
 import com.example.api_client.api_client_ds.entities.Client;
 import com.example.api_client.api_client_ds.repositories.ClientRepository;
+import com.example.api_client.api_client_ds.services.exceptions.DatabaseException;
+import com.example.api_client.api_client_ds.services.exceptions.ResourceNotFoundException;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -18,7 +22,9 @@ public class ClientService {
 
     @Transactional(readOnly = true)
     public ClientDTO findById(Long id) {
-        Client client = clientRepository.findById(id).get();
+        Client client = clientRepository.findById(id).orElseThrow(
+                () -> new ResourceNotFoundException("Erro ao recuperar o cliente")
+        );
 
         return new ClientDTO(client);
     }
@@ -40,21 +46,27 @@ public class ClientService {
 
     @Transactional(propagation = Propagation.SUPPORTS)
     public void delete (Long id) {
+
+        if (!clientRepository.existsById(id)) {
+            throw new ResourceNotFoundException("Erro ao excluir o cliente");
+        }
         try {
-            if (clientRepository.existsById(id)) {
-                clientRepository.deleteById(id);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
+            clientRepository.deleteById(id);
+        } catch (DataIntegrityViolationException e) {
+            throw new DatabaseException("Falha de integridade referencial");
         }
 
     }
 
     public ClientDTO update(Long id, ClientDTO clientDTO) {
-        Client client = clientRepository.findById(id).get();
-        copyDtoForEntity(clientDTO, client);
-        client = clientRepository.save(client);
-        return new ClientDTO(client);
+        try {
+            Client client = clientRepository.findById(id).get();
+            copyDtoForEntity(clientDTO, client);
+            client = clientRepository.save(client);
+            return new ClientDTO(client);
+        } catch (EntityNotFoundException ex) {
+            throw new ResourceNotFoundException("Recurso não encontrado");
+        }
     }
 
     private void copyDtoForEntity(ClientDTO dto, Client client) {
