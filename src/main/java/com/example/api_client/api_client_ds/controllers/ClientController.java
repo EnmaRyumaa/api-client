@@ -31,4 +31,14 @@ public class ClientController {
     public ClientDTO insert (@RequestBody ClientDTO clientDTO) {
         return clientService.insert(clientDTO);
     }
+
+    @DeleteMapping(value = "/{id}")
+    public void delete (@PathVariable Long id) {
+        clientService.delete(id);
+    }
+
+    @PutMapping(value = "/{id}")
+    public void update(@PathVariable Long id, @RequestBody ClientDTO clientDTO) {
+        clientDTO = clientService.update(id, clientDTO);
+    }
 }
