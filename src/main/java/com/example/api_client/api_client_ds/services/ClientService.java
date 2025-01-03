@@ -28,4 +28,20 @@ public class ClientService {
 
         return result.map(x -> new ClientDTO(x));
     }
+
+    public ClientDTO insert(ClientDTO clientDTO) {
+        Client client = new Client();
+        copyDtoForEntity(clientDTO, client);
+        client = clientRepository.save(client);
+
+        return new ClientDTO(client);
+    }
+
+    private void copyDtoForEntity(ClientDTO dto, Client client) {
+        client.setName(dto.getName());
+        client.setCpf(dto.getCpf());
+        client.setBirthDate(dto.getBirthDate());
+        client.setIncome(dto.getIncome());
+        client.setChildren(dto.getChildren());
+    }
 }
